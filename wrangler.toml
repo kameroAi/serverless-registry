@@ -1,0 +1,29 @@
+name = "kamero-cf-docker-registry"
+account_id = "c7718eca5b8656f9d4a167bfe8a678ac"
+
+workers_dev = true
+main = "./index.ts"
+compatibility_date = "2024-09-09"
+compatibility_flags = ["nodejs_compat"]
+
+## Production
+[env.production]
+r2_buckets = [
+  { binding = "REGISTRY", bucket_name = "kamero-cf-docker-registry" }
+]
+
+[env.production.vars]
+ENVIRONMENT = "production"
+
+# Secrets (set via wrangler secret or CF dashboard):
+# USERNAME
+# PASSWORD
+
+## Dev - For local dev using `npx wrangler dev`
+[env.dev]
+r2_buckets = [{ binding = "REGISTRY", bucket_name = "kamero-cf-docker-registry" }]
+
+[env.dev.vars]
+ENVIRONMENT = "development"
+USERNAME = "hello"
+PASSWORD = "world"
